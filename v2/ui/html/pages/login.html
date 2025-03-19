@@ -1,0 +1,35 @@
+{{define "title"}}Login{{end}}
+
+{{define "main"}}
+<div class="login_container">
+    <h1>Добро пожаловать</h1>
+    <form action='/user/login' method='POST' novalidate>
+    <span >АВТОРИЗОВАТЬСЯ</span>
+        <!-- Include the CSRF token -->
+    <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+    {{range .Form.NonFieldErrors}}
+        <div class='error'>{{.}}</div>
+    {{end}}
+    <div>
+        <label>Почта</label>
+        {{with .Form.FieldErrors.email}}
+            <label class='error'>{{.}}</label>
+        {{end}}
+        <input type='email' name='email' value='{{.Form.Email}}' class="login_input" placeholder="почта">
+    </div>
+    <div>
+        <label>Пароль</label>
+        {{with .Form.FieldErrors.password}}
+            <label class='error'>{{.}}</label>
+        {{end}}
+        <input type='password' name='password' class="login_input" id="password" placeholder="пароль">
+        <label class="show_pass">
+            <input type="checkbox" id="showPassword"> показать пароль
+        </label>
+    </div>
+    <div>
+        <input type='submit' value='войти'>
+    </div>
+</form>
+</div>
+{{end}}

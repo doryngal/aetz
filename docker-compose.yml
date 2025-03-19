@@ -1,0 +1,12 @@
+services:
+  webaetz:
+    build:
+      context: .
+    ports:
+      - "4001:4001"
+    environment:
+      DB_HOST: "127.0.0.1"  # IP базы данных
+      DB_PORT: "5432"
+      DB_USER: 'baha'
+      DB_PASSWORD: 'adminadmin1'
+      DB_NAME: binai

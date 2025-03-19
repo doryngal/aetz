@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  mypostgres:
+    image: postgres:14.12
+    container_name: mypostgres
+    # restart: unless-stopped
+    volumes:
+      # - "/home/**user**/postgres_data:/var/lib/postgresql/data"
+      - "/home/student/postgres_data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    # command: psql -U postgres -c 'CREATE DATABASE greenlight;' -c "CREATE ROLE rus WITH LOGIN PASSWORD 'qwe';" -c 'CREATE EXTENSION IF NOT EXISTS citext;'
+  pgadmin:
+    image: dpage/pgadmin4:7
+    container_name: pgadmin
+    # restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+    ports:
+      - "5000:80"
+    volumes:
+      # - "/home/**user**/pgadmin_data:/var/pgadmin/pgadmin4"
+      - "/home/student/pgadmin_data:/var/pgadmin/pgadmin4"
+    depends_on:
+      - mypostgres
+# volumes:
+  # postgres_data:
+  # pgadmin_data:
+    # external: true

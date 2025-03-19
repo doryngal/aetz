@@ -1,0 +1,54 @@
+{{define "title"}}Профиль{{end}}
+
+{{define "main"}}
+    <h1>Личный кабинет</h1>
+    <div class="profile_container">
+        <!-- Блок с фотографией и именем -->
+        <div class="profile_item">
+            <div class="profile_picture">
+                <img class="user_picture"/>
+            </div>
+            <span>{{.Userdata.Name}}</span>
+        </div>
+
+        <!-- Блок с личной информацией -->
+        <div class="profile_item">
+            <div class="head_info">
+                <span>Личная информация</span>
+            </div>
+            <div class="info_wrapper">
+                <div class="row">
+                    <div>
+                        <label>Имя</label>
+                        <input value="{{.Userdata.Name}}"/>
+                    </div>
+                    <div>
+                        <label>Почта</label>
+                        <input value="{{.Userdata.Email}}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="profile_item_footer">
+                <button type="submit" class="btn">Обновить</button>
+            </div>
+        </div>
+
+        <!-- Блок с лотами -->
+        <div class="profile_item">
+            <div class="head_info">
+                <span>Лоты для обучения</span>
+                <button type="button" id="toggleLots">Показать/Скрыть лоты</button>
+            </div>
+            <div class="info_wrapper" id="lotsList" style="display: none;">
+                <ul class="lot_list" id="lotList">
+                    {{range .Userdata.Lots}}
+                    <li><a href="{{.}}" target="_blank">Лот</a></li>
+                    {{else}}
+                    <li>Лоты не найдены.</li>
+                    {{end}}
+                </ul>
+            </div>
+        </div>
+    </div>
+{{end}}
+

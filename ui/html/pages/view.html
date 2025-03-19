@@ -1,0 +1,146 @@
+{{define "title"}}Lot #{{.Lot.AdvertID}}{{end}}
+
+{{define "main"}}
+    {{with .Lot}}
+    <div class="lot-info">
+        <div class="page-lot__info">
+            <div class="lot-info__title">
+                <span>Ссылка на goszakup: </span>
+                <a href="{{.URL}}" target="_blank">{{.URL}}</a>
+            </div>
+            <div class="lot-page">
+                <div class="lot__info">
+                    <div class="lot__layout">
+                        <div class="lot__label">
+                            <span>Дата публикации: </span>
+                        </div>
+                        <div class="lot__date">
+                            <span>{{.CreateDate.Format "2006-01-02 15:04"}}</span>
+                        </div>
+                    </div>
+                    <div class="lot__layout">
+                        <div class="lot__label">
+                            <span>Начало подачи: </span>
+                        </div>
+                        <div class="lot__date">
+                            <span>{{.StartDate.Format "2006-01-02 15:04"}}</span>
+                        </div>
+                    </div>
+                    <div class="lot__layout">
+                        <div class="lot__label">
+                            <span>Завершение: </span>
+                        </div>
+                        <div class="lot__date">
+                            <input id="endDate" value="{{.EndDate.Format "2006-01-02T15:04"}}" hidden/>
+                            <span>{{.EndDate.Format "2006-01-02 15:04"}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lot__time">
+                    {{if .EndDate.After .Now}} <!-- Проверяем, если дата окончания еще не прошла -->
+                        <span>До окончания тендера</span>
+                    {{else}}
+                        <span>Тендер завершен!</span>
+                    {{end}}
+                    <div class="countdown">
+                        <div class="countdown__time" id="days">
+                            00
+                            <span class="countdown__unit">дня</span>
+                        </div>
+                        <div> : </div>
+                        <div class="countdown__time" id="hours">
+                            00 <span class="countdown__unit">часа</span>
+                        </div>
+                        <div> : </div>
+                        <div class="countdown__time" id="minutes">
+                            00 <span class="countdown__unit">минуты</span>
+                        </div>
+                        <div> : </div>
+                        <div class="countdown__time" id="seconds">
+                            00 <span class="countdown__unit">секунды</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="page-lot__details">
+                <div class="lot-details-container">
+                    <div class="lot-info__title">
+                        <span>Лот: </span>
+                        <span>{{.Name}}</span>
+                    </div>
+                    <div class="lot-details__item">
+                        <span>{{.Price}} ₸</span>
+                        <label>Статус: <span>{{.Status}}</span></label>
+                    </div>
+
+                    <div class="lot-details__info">
+                        <div class="lot__layout">
+                            <div class="lot__label">
+                                <span>Название лота:</span>
+                            </div>
+                            <div class="lot__date">
+                                <span>{{.Name}}</span>
+                            </div>
+                        </div>
+                        <div class="lot__layout">
+                            <div class="lot__label">
+                                <span>Номер лота:</span>
+                            </div>
+                            <div class="lot__date">
+                                <span>{{.AdvertID}}</span>
+                            </div>
+                        </div>
+                        <div class="lot__layout">
+                            <div class="lot__label">
+                                <span>Цена:</span>
+                            </div>
+                            <div class="lot__date">
+                                <span>{{.Price}} ₸</span>
+                            </div>
+                        </div>
+                        <div class="lot__layout">
+                            <div class="lot__label">
+                                <span>Организатор:</span>
+                            </div>
+                            <div class="lot__date">
+                                <span>{{.Organizer}}</span>
+                            </div>
+                        </div>
+                        <div class="lot__layout">
+                            <div class="lot__label">
+                                <span>Дата публикации: </span>
+                            </div>
+                            <div class="lot__date">
+                                <span>{{.CreateDate.Format "2006-01-02 15:04"}}</span>
+                            </div>
+                        </div>
+                        <div class="lot__layout">
+                            <div class="lot__label">
+                                <span>Срок начала приема заявок: </span>
+                            </div>
+                            <div class="lot__date">
+                                <span>{{.StartDate.Format "2006-01-02 15:04"}}</span>
+                            </div>
+                        </div>
+                        <div class="lot__layout">
+                            <div class="lot__label">
+                                <span>Срок окончания приема заявок: </span>
+                            </div>
+                            <div class="lot__date">
+                                <input id="endDate" value="{{.EndDate.Format "2006-01-02T15:04"}}" hidden/>
+                                <span>{{.EndDate.Format "2006-01-02 15:04"}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lot-details__sidebar">
+                    <h2>Документ для скачивания</h2>
+                    <a href="{{.LinkDownloadFile}}">{{.LinkDownloadFile}}</a>
+                </div>
+            </div>
+    </div>
+    {{end}}
+{{end}}
+
+

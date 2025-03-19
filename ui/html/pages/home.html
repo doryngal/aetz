@@ -1,0 +1,138 @@
+{{define "title"}}Home{{end}}
+
+{{define "main"}}
+    {{template "filter" .}}
+    <h2>Тендера для вас</h2>
+    <h3>Количество лотов: {{.CountLots}}</h3>
+    {{if .Lots}}
+    <div class="sticky_layout">
+        <form action="" method="POST">
+            <button type="submit" disabled="true" id="review_confirm_lot">Отправить отзыв</button>
+            <button type="button" id="cancel_review" class="cancel_btn" disabled="true">Отмена</button>
+        </form>
+    </div>
+    {{range .Lots}}
+    <div class="lot">
+        <div class="lot_head">
+            <div class="lot_info">
+            <a target="_blank" href="/lot/{{.ID}}">
+                <h3>{{.Name}}</h3>
+            </a>
+            <div class="lot_place_delivery">
+                <label>Место поставки: </label>
+                <span>{{.DeliveryPlace}}</span>
+            </div>
+            <div class="lot_info__dates">
+                <div class="lot_info__layout">
+                    <div class="lot_info__section">
+                        <span class="material-symbols-outlined">
+                            calendar_month
+                        </span>
+                        <span class="date">
+                            {{.CreateDate.Format "2006-01-02"}}
+                        </span>
+                    </div>
+                    <div class="lot_info__section">
+                        <span class="material-symbols-outlined">
+                            calendar_month
+                        </span>
+                        <span class="date">{{.StartDate.Format "2006-01-02"}}</span>
+                    </div>
+                    <div class="lot_info__section">
+                        <span class="material-symbols-outlined">
+                            schedule
+                        </span>
+                        <span class="date">{{ .CreateDate.Format "15:04" }}</span>
+                    </div>
+                    <div class="lot_info__mid"> — </div>
+                    <div class="lot_info__section">
+                        <span class="material-symbols-outlined">
+                            calendar_month
+                        </span>
+                        <span class="date">{{ .EndDate.Format "2006-01-02"}}</span>
+                    </div>
+                    <div class="lot_info__section">
+                        <span class="material-symbols-outlined">
+                            schedule
+                        </span>
+                        <span class="date">{{ .EndDate.Format "15:04"}}</span>
+                        <div id="lot-{{.ID}}" class="lot_info__badge">
+                            <span class="date" id="time-left-{{.ID}}" data-enddate="{{.EndDate.Format "2006-01-02T15:04:05Z"}}"></span>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="lot_info_link_parent">
+                    <span>Ссылка на родительской лот: </span>
+                    <a href="{{.ParentLotLink.String}}" target="_blank">подробнее</a>
+                </div>
+            </div>
+            </div>
+            <div class="lot_details">
+            <div class="lot_details__price">
+                <span>{{.Price}} ₸</span>
+            </div>
+            <div class="lot_details__status">
+                <span>Статус: {{.Status}}</span>
+            </div>
+            <div class="lot_details__type">
+                <span>{{.LotType}}</span>
+            </div>
+            </div>
+        </div>
+        <div class="lot_footer">
+            <p>Подходит ли данный лот под ваши текущие потребности?</p>
+            <div class="form_lot">
+                <label for="agree_yes_{{.ID}}">
+                    <input type="radio" id="agree_yes" name="agreement-{{.ID}}" class="radio-lot"/>
+                    Да
+                </label>
+                <label for="agree_no_{{.ID}}">
+                    <input type="radio" id="agree_no" name="agreement-{{.ID}}" class="radio-lot"/>
+                    Нет
+                </label>
+            </div>
+        </div>
+    </div>
+    {{end}}
+        <div class="pagination">
+            {{.Metadata}}
+            <div class="pagination-control">
+             {{if .Metadata.PrevPage}}
+            <a href="?page={{.Metadata.PrevPage}}" class="pagination-control__button">
+                <span class="material-symbols-outlined">
+                    arrow_back_ios
+                </span>
+            </a>
+            {{end}}
+            {{ range $i := seq .Metadata.FirstPage .Metadata.LastPage }}
+                {{ if eq $i $.Metadata.CurrentPage }}
+                    <span class="current">{{ $i }}</span>
+                {{ else }}
+                <a href="?page={{ $i }}" class="page">{{ $i }}</a>
+                {{ end }}
+            {{ end }}
+            {{if .Metadata.NextPage}}
+            <a href="?page={{.Metadata.NextPage}}" class="pagination-control__button">
+                <span class="material-symbols-outlined">
+                    arrow_forward_ios
+                </span>
+            </a>
+            {{end}}
+            </div>
+            <div class="pagination-select">
+                <form action="/" method="GET">
+                    <select name="pageSize" id="pageSize">
+                        {{range .PageSize}}
+                            <option value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                    <button type="submit">показать</button>
+                </form>
+            </div>
+        </div>  
+    {{else}}
+     <p>Пусто...</p>
+    {{end}} 
+{{end}}
+

@@ -1,0 +1,70 @@
+{{define "filter"}}
+<div class="filter_container">
+    <form action="/" method="GET" class="filter_form">
+        <div class="filter__title">
+            Поиск тендера
+        </div>
+        <div class="hero-filter">
+            <div class="filter-panel">
+                <div class="filter_form__item">
+                    <label class="filter-head-text">Наименование или описание лота</label>
+                    <div class="filter-input-search">
+                        <div class="filter-input-block">
+                            <input placeholder="Введите наименование и описание лота" class="filter-input" name="search" />
+                            <button class="search-btn" type="submit">поиск</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter_form__item">
+                    <div>
+                        <label class="filter-head-text">Место поставки</label>
+                    </div>
+                    <div class="select-btn">
+                        <span class="btn-text">Выберите место</span>
+                        <span class="arrow-dwn material-symbols-outlined">
+                            keyboard_arrow_down
+                        </span>
+                    </div>
+
+                    <ul class="list-items">
+                        <div class="list_place_btns">
+                            <button type="button" id="check_all">Выбрать все</button>
+                            <button type="button" id="reset">Сбросить</button>
+                        </div>
+                        {{range .Regions}}
+                        <li class="item" >
+                            <input type="checkbox" class="checkbox" name="regions" value="{{.}}"/>
+                            <span class="item-text">{{.}}</span>      
+                        </li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-panel">
+                <div class="filter_form__item">
+                    <label class="filter-head-text">Сумма закупки c</label>
+                    <div class="filter-input-block">
+                        <input placeholder="Cумма закупки с" class="filter-input" type="number" min="0" name="price"/>
+                    </div>
+                </div>
+                <div class="filter_form__item">
+                    <label class="filter-head-text">Срок начала приема заявок</label>                 
+                    <div class="filter-input-block">
+                        <input class="filter-input" type="date" placeholder="Дата начало от" name="startDate"/>
+                    </div>
+                </div>
+                <div class="filter_form__item">
+                    <label class="filter-head-text">Срок окончания приема заявок</label>
+                    <div class="filter-input-block">
+                        <input class="filter-input" type="date" placeholder="Дата окончания от" name="endDate"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filter-footer">
+            <a href="/" class="cancel_btn">ОТМЕНА</a>
+            <button class="" type="submit">ПОИСК</button>
+        </div>
+    </form>
+</div>
+{{end}}
