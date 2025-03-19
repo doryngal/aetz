@@ -3,10 +3,10 @@ services:
     build:
       context: .
     ports:
-      - "4001:4001"
+      - "443:443"
     environment:
-      DB_HOST: "127.0.0.1"  # IP базы данных
+      DB_HOST: "postgres"  # IP базы данных
       DB_PORT: "5432"
       DB_USER: 'baha'
       DB_PASSWORD: 'adminadmin1'
-      DB_NAME: binai
+      DB_NAME: binai2
