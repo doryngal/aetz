@@ -34,10 +34,10 @@ type application struct {
 // хостинг запустить
 
 func main() {
-	addr := flag.String("addr", ":8088", "HTTP network address")
+	addr := flag.String("addr", ":443", "HTTP network address")
 	// dsn := flag.String("dsn", "web:pass@/snippetbox?parseTime=true", "MySQL data source name")
-	dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", "postgres", "TamaqQr", "localhost", "349349")
-	// dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", "baha", "binai", "mypostgres", "adminadmin1")
+	//dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", "postgres", "TamaqQr", "localhost", "349349")
+	dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", "baha", "binai2", "postgres", "adminadmin1")
 
 	// dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable",
 	// 	os.Getenv("DB_USER"),

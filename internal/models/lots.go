@@ -55,25 +55,30 @@ func (l *LotModel) GetRelevantLotList(companyName, searchStr string, filters Fil
 		sortDirection = "ASC" // дефолтное направление
 	}
 
-	query := fmt.Sprintf(`
+	query := `
 SELECT DISTINCT
     l.id, l.advert_id, l.name, l.status, l.createdate, l.organizer, 
     l.price, l.url, l.lottype, l.startdate, l.enddate, l.linkdownloadfile
 FROM public.lots l
-JOIN public.relevant_lots r ON l.lot_id = r.lot_id;`)
+JOIN public.relevant_lots r ON l.lot_id = r.lot_id
+WHERE LOWER(l.name) LIKE LOWER($1);`
 
-	// select count(*) from lots l JOIN relevant_lot r ON l.id = r.lot_id where (LOWER(l.status) LIKE '%%(прием заявок)%%');
-	// AND (LOWER(l.status) LIKE '%%(прием заявок)%%')
+	searchPattern := "%" + searchStr + "%" // Добавляем подстановку для LIKE
 
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
+
+	rows, err := l.DB.QueryContext(ctx, query, searchPattern)
+
+	// select count(*) from lots l JOIN relevant_lot r ON l.id = r.lot_id where (LOWER(l.status) LIKE '%%(прием заявок)%%');
+	// AND (LOWER(l.status) LIKE '%%(прием заявок)%%')
 
 	// fmt.Println("filter.StartDate", filters.StartDate, "filter.EndDate", filters.EndDate)
 	//args := []any{companyName, searchStr, filters.limit(), filters.offset(), filters.price(), filters.StartDate}
 	// args := []any{companyName, searchStr, filters.limit(), filters.offset(), filters.price()}
 	// args := []any{companyName}
 
-	rows, err := l.DB.QueryContext(ctx, query)
+	//rows, err := l.DB.QueryContext(ctx, query)
 	if err != nil {
 		fmt.Println("empty Metadata", err)
 		return nil, Metadata{
