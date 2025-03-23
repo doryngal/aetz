@@ -37,7 +37,7 @@ func main() {
 	addr := flag.String("addr", ":443", "HTTP network address")
 	// dsn := flag.String("dsn", "web:pass@/snippetbox?parseTime=true", "MySQL data source name")
 	//dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", "postgres", "TamaqQr", "localhost", "349349")
-	dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", "baha", "binai", "postgres", "adminadmin1")
+	dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable port=%d", "baha", "binai", "postgres", "adminadmin1", 5433)
 
 	// dsn := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable",
 	// 	os.Getenv("DB_USER"),
