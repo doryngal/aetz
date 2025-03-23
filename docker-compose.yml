@@ -9,4 +9,4 @@ services:
       DB_PORT: "5432"
       DB_USER: 'baha'
       DB_PASSWORD: 'adminadmin1'
-      DB_NAME: binai2
+      DB_NAME: binai
