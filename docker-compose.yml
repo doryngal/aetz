@@ -3,10 +3,13 @@ services:
     build:
       context: .
     ports:
-      - "443:443"
+      - "9443:443"
     environment:
       DB_HOST: "postgres"  # IP базы данных
       DB_PORT: "5432"
       DB_USER: 'baha'
       DB_PASSWORD: 'adminadmin1'
       DB_NAME: binai
+networks:
+  mynetwork:
+    driver: binai-parsers_default
